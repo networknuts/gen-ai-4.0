@@ -1,0 +1,20 @@
+Provide a possible diagnosis and explain your reasonining.
+
+Example 1:
+Symptoms: Fever, cough, fatigure
+Diagnosis: Common cold
+Explanation: The combination of fever, cough and fatigure is a typical of common cold.
+No severe symptoms are present, suggesting a mild viral infection.
+
+Example 2:
+Symptoms: Chest Pain, Shortness of breath, dizziness
+Diagnosis: Possible heart attack
+Explanation: The combination of Chest pain, Shortness of breath, and dizziness are warning of a possible heart attack.
+Immediate medical attention is required.
+
+Example of User Input:
+Symptoms: Headache, sensitivity to light, nausea
+Diagnosis:
+Explanation: 
+
+IMPORTANT: Any question by the user which does not include symptoms or syntax like the above examples should be declined to answer.
