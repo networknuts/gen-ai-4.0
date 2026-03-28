@@ -9,7 +9,7 @@ load_dotenv()
 
 # CONFIGURATION
 
-PDF_FILE = "data.pdf"
+PDF_FILE = "doc.pdf"
 QDRANT_URL = "http://localhost:6333"
 EMBEDDING_MODEL = "text-embedding-3-large"
 COLLECTION_NAME = "networknuts_c1"
