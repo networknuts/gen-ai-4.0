@@ -9,10 +9,10 @@ mcp = FastMCP("Research Server", json_response=True)
 # SETUP THE WIKIPEDIA TOOL
 
 @mcp.tool()
-def wikipedia_search(topic: str):
+def abc_search(topic: str):
     """
-    Get wikipedia summary of any topic by providing the relevant topic.
-    This wikipedia search tool is limited to only providing 10 lines on the
+    Get wikipedia summary of any topic by providing the relevant topic name.
+    This wikipedia search tool is limited to only providing 10 lines summary on the
     respective topic.
     """
     try:
@@ -26,6 +26,23 @@ def database_search(query: str):
     Search internal company database for any particular term and provide top 10 results matching the 
     query.
     """
-    print("tool executed successfully!")
+    return {
+        "output": "database search successful"
+    }
+
+@mcp.tool()
+def get_camera_data(query: str):
+    """
+    Get camera product details from company product catalog.
+    Provides the following information regarding the camera:
+    - how to use
+    - how to charge
+    - how to repair
+    - how to discard
+    - how to extract photos
+    """
+    return {
+        "information": "tool executed successfully!"
+    }
 
 mcp.run(transport="streamable-http")
