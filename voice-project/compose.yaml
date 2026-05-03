@@ -1,0 +1,30 @@
+services:
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - transcriber
+    networks:
+      - voice-net
+
+  transcriber:
+    build: ./transcriber
+    environment:
+      - OPENAI_API_KEY=enter-key-here
+    networks:
+      - voice-net
+    ports:
+      - "8001:8000"
+
+  summarizer:
+    build: ./summarizer
+    networks:
+      - voice-net
+    environment:
+      - OPENAI_API_KEY=enter-key-here
+
+networks:
+  voice-net:
+    driver: bridge

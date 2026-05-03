@@ -1,0 +1,16 @@
+node_modules
+dist
+.wrangler
+.cache
+.vite
+.git
+.gitignore
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+README.md
+.vscode
+.idea
+coverage

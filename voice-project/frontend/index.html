@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Transcription</title>
+</head>
+<body>
+
+<h2>Voice Transcription Demo</h2>
+
+<button onclick="startRecording()">Start</button>
+<button onclick="stopRecording()">Stop</button>
+
+<hr>
+
+<h3>Live Output:</h3>
+<div id="output" style="font-family: monospace;"></div>
+
+<script>
+let mediaRecorder;
+let socket;
+
+async function startRecording() {
+    const output = document.getElementById("output");
+    output.innerHTML = "";
+
+    // 🎤 Get mic access
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    // 🔌 Create WebSocket
+    socket = new WebSocket("ws://localhost:8001/ws");
+
+    socket.onopen = () => {
+        console.log("✅ WebSocket connected");
+
+        // 🎙️ Start recording ONLY after WS is ready
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (event) => {
+            if (
+                event.data.size > 0 &&
+                socket.readyState === WebSocket.OPEN
+            ) {
+                socket.send(event.data);
+            }
+        };
+
+        // 🔥 Increase chunk size (important)
+        mediaRecorder.start(4000);
+    };
+
+    socket.onmessage = (event) => {
+        console.log("📩 Received:", event.data);
+
+        const output = document.getElementById("output");
+        output.innerHTML += "<p>" + event.data + "</p>";
+    };
+
+    socket.onerror = (err) => {
+        console.error("❌ WebSocket error:", err);
+    };
+
+    socket.onclose = () => {
+        console.warn("⚠️ WebSocket closed");
+    };
+}
+
+function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+    }
+
+    // send STOP only if socket is alive
+    if (socket && socket.readyState === WebSocket.OPEN) {
+        socket.send("STOP");
+    }
+}
+</script>
+
+</body>
+</html>
