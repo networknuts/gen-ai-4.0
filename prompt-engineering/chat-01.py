@@ -18,4 +18,4 @@ response = client.responses.create(
 )
 
 print("AI Response: \n")
-print(response.output_text)
+print(response)
